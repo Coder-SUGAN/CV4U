@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI-Powered CV Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html-to-docx-ts@1.8.0/dist/browser/html-to-docx.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              'sans': ['Roboto', 'sans-serif'],
+              'roboto': ['Roboto', 'sans-serif'],
+              'lato': ['Lato', 'sans-serif'],
+              'montserrat': ['Montserrat', 'sans-serif'],
+              'merriweather': ['Merriweather', 'serif'],
+            }
+          }
+        }
+      }
+    </script>
+    
+    <style>
+      @media print {
+        body {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .no-print {
+          display: none !important;
+        }
+        .print-container {
+          display: block !important;
+          width: 100% !important;
+          height: 100% !important;
+          position: absolute;
+          top: 0;
+          left: 0;
+          margin: 0;
+          padding: 0;
+        }
+        #cv-preview {
+          margin: 0;
+          border: none;
+          transform: scale(1);
+          box-shadow: none;
+        }
+        .print-section {
+          -moz-column-break-inside: avoid;
+               break-inside: avoid;
+        }
+      }
+    </style>
+
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.0",
+    "jspdf": "https://aistudiocdn.com/jspdf@^3.0.3",
+    "html2canvas": "https://aistudiocdn.com/html2canvas@^1.4.1",
+    "vite": "https://aistudiocdn.com/vite@^7.2.2",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.0"
+  }
+}
+</script>
+  <script type="module" crossorigin src="./assets/index-BSXiVkUp.js"></script>
+</head>
+  <body class="bg-gray-100 dark:bg-gray-900">
+    <div id="root"></div>
+  </body>
+</html>

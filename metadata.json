@@ -1,0 +1,6 @@
+{
+  "name": "AI-Powered CV Builder",
+  "description": "A modern, free CV builder that uses AI to help you write professional summaries and job descriptions, ensuring your resume stands out.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

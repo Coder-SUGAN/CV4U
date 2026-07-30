@@ -1,0 +1,37 @@
+{
+  "name": "ai-powered-cv-builder",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx server.ts",
+    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
+    "build:docs": "vite build --outDir docs",
+    "start": "node dist/server.cjs"
+  },
+  "dependencies": {
+    "@google/genai": "^1.29.0",
+    "@types/express": "^5.0.6",
+    "esbuild": "^0.28.1",
+    "express": "^5.2.1",
+    "file-saver": "^2.0.5",
+    "html-to-docx": "^1.8.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
+    "lucide-react": "^1.24.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsx": "^4.23.1"
+  },
+  "devDependencies": {
+    "@types/file-saver": "^2.0.7",
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.25",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  }
+}
