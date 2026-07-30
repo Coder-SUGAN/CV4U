@@ -11,15 +11,17 @@ Follow these steps to get the project running on your local machine.
 - [Node.js](https://nodejs.org/) (version 18.x or higher is recommended)
 - npm (usually comes with Node.js)
 
-### 🚀 Fixed "Enhance with AI" & Header Logo for GitHub Pages
+### 🚀 Fixed "Enhance with AI", AI Resume PDF Import & Header Logo for GitHub Pages
 
-#### 1. 🤖 "Enhance with AI" Fixed
-- **Why it failed before:** GitHub Pages hosts static files and does not run a backend server, so requests to `/api/enhance-text` returned `404`, resulting in *"Error generating text"*.
-- **How it's fixed now:** We added a **Smart Client AI Enhancer** directly inside `services/geminiService.ts`. When running on static hosting like GitHub Pages, the app automatically uses the smart enhancer to rewrite summaries and work experience with strong impact action verbs, STAR bullet points, and polished grammar. It now works 100% reliably without requiring a backend or showing error messages!
+#### 1. 🤖 "Enhance with AI" & AI Resume PDF Import Fixed
+- **Why it failed before:** GitHub Pages hosts static files without a Node server. Requests to `/api/enhance-text` and `/api/parse-resume` returned `404`, causing errors on static sites.
+- **How it's fixed now:**
+  - **PDF Resume Import:** Integrated browser-based PDF text extraction (`pdfjs-dist`) and an intelligent client-side resume parser. Uploading a PDF resume extracts personal details, summary, work experience, education, and skills seamlessly on GitHub Pages without requiring a backend server!
+  - **Enhance with AI:** Added a **Smart Client AI Enhancer** that automatically rewrites summaries and bullet points with strong impact action verbs, STAR structure, and polished grammar when hosted statically.
 
-#### 2. 🖼️ Header Logo Image Fixed
-- **Why it failed before:** The old image `<img src="/logo.svg" />` relied on external files that broke on repository subpaths (e.g. `coder-sugan.github.io/CV4U/`).
-- **How it's fixed now:** We replaced the image with an **Inline Vector SVG Component** (`Logo.tsx`). The vector graphic is embedded directly into the app bundle, so it renders immediately and is 100% immune to broken image links or path issues!
+#### 2. 🖼️ Header Logo Fixed
+- **Why it failed before:** `<img src="/logo.svg" />` relied on root domain image fetching which returned 404 on GitHub Pages subpaths.
+- **How it's fixed now:** Replaced with an **Inline Vector SVG Component** (`Logo.tsx`) with explicit responsive height and width bounds. It is embedded directly in the app bundle and is 100% immune to path errors or missing image links on refresh!
 
 > **Note:** To see both fixes on your live site, upload the updated extracted project files (including the newly generated `docs/` folder) to your GitHub repository!
 
