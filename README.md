@@ -11,21 +11,38 @@ Follow these steps to get the project running on your local machine.
 - [Node.js](https://nodejs.org/) (version 18.x or higher is recommended)
 - npm (usually comes with Node.js)
 
-### 🚀 Why it showed `CV4U.github.io` & How to Fix It
+### 🖼️ Fixed Broken Logo Image on GitHub Pages
 
-In your screenshot, GitHub Pages is set to **`main` branch `/docs`**, but previously the **`docs` folder did not exist** in your GitHub repository, so GitHub Pages fell back to displaying the title of your `README.md` file.
+The logo image in the header was previously requested using `/logo.svg` (domain root path), which broke when hosted on subpaths like `https://suganthansuga405-collab.github.io/CV4U.github.io/`.
 
-We have now **built and added the `/docs` folder** (containing `docs/index.html`, `docs/assets/`, and `docs/.nojekyll`) directly into your project!
+We have updated `Logo.tsx` to use `./logo.svg` (relative path) and re-compiled the `docs/` build. 
 
-#### To complete the publish on GitHub Pages:
+**When you re-upload or push the updated `docs/` folder to GitHub, the header logo image will render perfectly on GitHub Pages!**
 
-1. **Upload/Push the new `docs` folder to GitHub**:
-   - Export or download the project files.
-   - Commit and push the files (including the **`docs`** folder and **`.github`** folder) to your GitHub repository `CV4U.github.io`.
+---
 
-2. **Trigger GitHub Pages Deployment**:
-   - Because your GitHub Pages is ALREADY configured to **`main` -> `/docs`** (as shown in your screenshot), as soon as GitHub detects the new commit containing the `docs/index.html` file, GitHub Pages will automatically build and publish your live React app!
-   - Alternatively, you can change **Source** under **Build and deployment** to **"GitHub Actions"** to use the automated workflow in `.github/workflows/deploy.yml`.
+### ❌ Why uploading a `.zip` file to GitHub does not work
+
+As seen in your screenshot, uploading `CV4U Final 1.zip` directly to GitHub puts the compressed `.zip` file inside the repository. **GitHub and GitHub Pages cannot extract `.zip` files automatically.** Because GitHub cannot read inside the `.zip` file, it cannot find `index.html`, `package.json`, or the `docs/` folder, which is why GitHub Pages fell back to displaying `README.md`.
+
+---
+
+### ✅ How to fix it (3 Simple Steps)
+
+1. **Delete `CV4U Final 1.zip` on GitHub**
+   - Click on `CV4U Final 1.zip` in your GitHub repository.
+   - Click the 🗑️ **Trash icon** (top right) to delete it, then click **Commit changes**.
+
+2. **Extract the ZIP file on your computer**
+   - Right-click the downloaded `.zip` file on your PC and choose **Extract All...**.
+   - Open the extracted folder so you see files like `package.json`, `index.html`, `docs/`, `App.tsx`, etc.
+
+3. **Upload the EXTRACTED FILES directly to GitHub**
+   - In your GitHub repository, click **Add file** -> **Upload files**.
+   - **Select ALL the individual files and folders inside your extracted folder** (including the `docs` folder) and drag them directly into the GitHub upload area.
+   - Click **Commit changes**.
+
+Once uploaded, GitHub Pages will instantly detect `docs/index.html` and **your live app will appear on `https://suganthansuga405-collab.github.io/CV4U.github.io/`!**
 
 ---
 
