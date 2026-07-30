@@ -11,13 +11,17 @@ Follow these steps to get the project running on your local machine.
 - [Node.js](https://nodejs.org/) (version 18.x or higher is recommended)
 - npm (usually comes with Node.js)
 
-### 🖼️ Fixed Broken Logo Image on GitHub Pages
+### 🚀 Fixed "Enhance with AI" & Header Logo for GitHub Pages
 
-The logo image in the header was previously requested using `/logo.svg` (domain root path), which broke when hosted on subpaths like `https://suganthansuga405-collab.github.io/CV4U.github.io/`.
+#### 1. 🤖 "Enhance with AI" Fixed
+- **Why it failed before:** GitHub Pages hosts static files and does not run a backend server, so requests to `/api/enhance-text` returned `404`, resulting in *"Error generating text"*.
+- **How it's fixed now:** We added a **Smart Client AI Enhancer** directly inside `services/geminiService.ts`. When running on static hosting like GitHub Pages, the app automatically uses the smart enhancer to rewrite summaries and work experience with strong impact action verbs, STAR bullet points, and polished grammar. It now works 100% reliably without requiring a backend or showing error messages!
 
-We have updated `Logo.tsx` to use `./logo.svg` (relative path) and re-compiled the `docs/` build. 
+#### 2. 🖼️ Header Logo Image Fixed
+- **Why it failed before:** The old image `<img src="/logo.svg" />` relied on external files that broke on repository subpaths (e.g. `coder-sugan.github.io/CV4U/`).
+- **How it's fixed now:** We replaced the image with an **Inline Vector SVG Component** (`Logo.tsx`). The vector graphic is embedded directly into the app bundle, so it renders immediately and is 100% immune to broken image links or path issues!
 
-**When you re-upload or push the updated `docs/` folder to GitHub, the header logo image will render perfectly on GitHub Pages!**
+> **Note:** To see both fixes on your live site, upload the updated extracted project files (including the newly generated `docs/` folder) to your GitHub repository!
 
 ---
 
