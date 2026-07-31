@@ -281,7 +281,8 @@ const App: React.FC = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.type !== "application/pdf") {
+    const isPdf = file.type === "application/pdf" || file.type.includes("pdf") || file.name.toLowerCase().endsWith(".pdf");
+    if (!isPdf) {
       triggerToast("Please upload a valid PDF document.", "error");
       return;
     }
@@ -553,7 +554,7 @@ const App: React.FC = () => {
             </div>
           )}
 
-          <CVForm cvData={cvData} onDataChange={handleDataChange} />
+          <CVForm cvData={cvData} onDataChange={handleDataChange} triggerToast={triggerToast} />
         </div>
         
         <div className="print-container relative">
