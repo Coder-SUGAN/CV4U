@@ -308,15 +308,18 @@ const App: React.FC = () => {
           // If a user is logged in, preserve their login details as personal info,
           // or merge them with the newly parsed resume content!
           const mergedPersonal = {
-            ...parsedCV.personalDetails,
-            fullName: currentUser ? currentUser.fullName : parsedCV.personalDetails.fullName || cvData.personalDetails.fullName,
-            email: currentUser ? currentUser.email : parsedCV.personalDetails.email || cvData.personalDetails.email,
+            fullName: parsedCV.personalDetails?.fullName || currentUser?.fullName || cvData.personalDetails.fullName || '',
+            jobTitle: parsedCV.personalDetails?.jobTitle || cvData.personalDetails.jobTitle || '',
+            email: parsedCV.personalDetails?.email || currentUser?.email || cvData.personalDetails.email || '',
+            phone: parsedCV.personalDetails?.phone || cvData.personalDetails.phone || '',
+            address: parsedCV.personalDetails?.address || cvData.personalDetails.address || '',
+            linkedin: parsedCV.personalDetails?.linkedin || cvData.personalDetails.linkedin || '',
           };
 
           setCvData({
             ...parsedCV,
             personalDetails: mergedPersonal,
-            accentColor: cvData.accentColor // Keep the chosen accent color
+            accentColor: cvData.accentColor || '#2563eb'
           });
 
           triggerToast("Hooray! Gemini successfully extracted and filled out your resume details!");
