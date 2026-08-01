@@ -193,15 +193,28 @@ const App: React.FC = () => {
   const handleAuthSuccess = (user: User, isNewUser: boolean) => {
     // 1. Update registered users list
     let updatedUsers = [...registeredUsers];
-    if (isNewUser) {
-      updatedUsers = [...registeredUsers, user];
-      setRegisteredUsers(updatedUsers);
-      localStorage.setItem('cv4u_users', JSON.stringify(updatedUsers));
+    const existingIndex = updatedUsers.findIndex(u => u.email.toLowerCase() === user.email.toLowerCase());
+    
+    const userWithRecord = {
+      ...user,
+      createdAt: user.createdAt || new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    };
+
+    if (existingIndex >= 0) {
+      updatedUsers[existingIndex] = {
+        ...updatedUsers[existingIndex],
+        ...userWithRecord
+      };
+    } else {
+      updatedUsers.push(userWithRecord);
     }
 
+    setRegisteredUsers(updatedUsers);
+    localStorage.setItem('cv4u_users', JSON.stringify(updatedUsers));
+
     // 2. Set current active user
-    setCurrentUser(user);
-    localStorage.setItem('cv4u_current_user', JSON.stringify(user));
+    setCurrentUser(userWithRecord);
+    localStorage.setItem('cv4u_current_user', JSON.stringify(userWithRecord));
     setShowAuthModal(false);
 
     // 3. Pre-fill CV personal details using the login info!
@@ -308,18 +321,24 @@ const App: React.FC = () => {
           // If a user is logged in, preserve their login details as personal info,
           // or merge them with the newly parsed resume content!
           const mergedPersonal = {
-            fullName: parsedCV.personalDetails?.fullName || currentUser?.fullName || cvData.personalDetails.fullName || '',
-            jobTitle: parsedCV.personalDetails?.jobTitle || cvData.personalDetails.jobTitle || '',
-            email: parsedCV.personalDetails?.email || currentUser?.email || cvData.personalDetails.email || '',
-            phone: parsedCV.personalDetails?.phone || cvData.personalDetails.phone || '',
-            address: parsedCV.personalDetails?.address || cvData.personalDetails.address || '',
-            linkedin: parsedCV.personalDetails?.linkedin || cvData.personalDetails.linkedin || '',
+            fullName: parsedCV.personalDetails?.fullName || currentUser?.fullName || '',
+            jobTitle: parsedCV.personalDetails?.jobTitle || '',
+            email: parsedCV.personalDetails?.email || currentUser?.email || '',
+            phone: parsedCV.personalDetails?.phone || '',
+            address: parsedCV.personalDetails?.address || '',
+            linkedin: parsedCV.personalDetails?.linkedin || '',
+            photo: parsedCV.personalDetails?.photo || ''
           };
 
           setCvData({
-            ...parsedCV,
             personalDetails: mergedPersonal,
-            accentColor: cvData.accentColor || '#2563eb'
+            summary: parsedCV.summary || '',
+            experience: parsedCV.experience || [],
+            education: parsedCV.education || [],
+            skills: parsedCV.skills || '',
+            languages: parsedCV.languages || [],
+            customSections: parsedCV.customSections || [],
+            accentColor: cvData.accentColor || '#d2b48c'
           });
 
           triggerToast("Hooray! Gemini successfully extracted and filled out your resume details!");

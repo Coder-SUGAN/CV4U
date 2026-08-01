@@ -55,9 +55,14 @@ app.post("/api/parse-resume", async (req, res) => {
   }
 
   try {
-    const cleanBase64 = base64Pdf.replace(/\s/g, '');
-    console.log("[parse-resume] Received base64 length:", base64Pdf.length, "cleaned length:", cleanBase64.length);
-    console.log("[parse-resume] Base64 start:", cleanBase64.substring(0, 100));
+    let cleanBase64 = base64Pdf.trim();
+    if (cleanBase64.includes(',')) {
+      cleanBase64 = cleanBase64.split(',')[1] || cleanBase64;
+    }
+    cleanBase64 = cleanBase64.replace(/[^A-Za-z0-9+/=]/g, '');
+
+    console.log("[parse-resume] Received raw length:", base64Pdf.length, "cleaned base64 length:", cleanBase64.length);
+    console.log("[parse-resume] Base64 start:", cleanBase64.substring(0, 50));
     
     try {
       const buffer = Buffer.from(cleanBase64, 'base64');
